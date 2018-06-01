@@ -12,3 +12,5 @@
 */
 
 Route::get('/', 'IndexController@index');
+
+Route::get('/api/getdata', 'IndexController@getData');
