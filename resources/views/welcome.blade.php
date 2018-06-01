@@ -68,31 +68,43 @@
     <body>
     <div class="container">
  <div id="app" class="wrapper">
+       @{{message}}
+<ul>
+  @foreach($data as $dat)
 
-    @{{message}}
-     @foreach($data as $dat)
 
-{{$dat->lender}}
-     @endforeach
+  <li>
+    {{$dat->lender}}
+  </li>@endforeach
+</ul>
+
+
  </div>
     </div>
     </body>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
         var app = new Vue({
-            el: '#app', 
+            el: '#app',
 
             data: {
-                 message: 'hello world gegre'
+                 message: 'hello world gegre',
             },
             mounted(){
-                this.loadpage(),
+              axios.get('/api/posts/comments')
+        .then((response) => {
+          this.comments = response.data
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
             },
             methods:{
 
                 loadPage: function(){
-                    return('hello loadpage')
+                    return('hello loadpage');
                 }
             }
         })
